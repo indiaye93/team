@@ -1,0 +1,291 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.2
+-- http://www.phpmyadmin.net
+--
+-- Client :  localhost
+-- Généré le :  Ven 04 Mai 2018 à 01:01
+-- Version du serveur :  10.1.13-MariaDB
+-- Version de PHP :  5.5.35
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de données :  `gestu`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Catégorie`
+--
+
+CREATE TABLE `Catégorie` (
+  `IdCategorie` int(10) NOT NULL,
+  `Nom` varchar(255) DEFAULT NULL,
+  `Description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Conseil`
+--
+
+CREATE TABLE `Conseil` (
+  `IdConseil` int(10) NOT NULL,
+  `Titre` varchar(255) DEFAULT NULL,
+  `Libelle` varchar(255) DEFAULT NULL,
+  `Etat` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Diagnostic`
+--
+
+CREATE TABLE `Diagnostic` (
+  `IdDiagnostic` int(10) NOT NULL,
+  `Conclusion` varchar(255) DEFAULT NULL,
+  `Date` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Diagnostic_Syntôme`
+--
+
+CREATE TABLE `Diagnostic_Syntôme` (
+  `DiagnosticIdDiagnostic` int(10) NOT NULL,
+  `SyntômeIdSymptome` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Maladie`
+--
+
+CREATE TABLE `Maladie` (
+  `IdMaladie` int(10) NOT NULL,
+  `Nom` varchar(255) DEFAULT NULL,
+  `Description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Maladie_Syntôme`
+--
+
+CREATE TABLE `Maladie_Syntôme` (
+  `Type de MaladieIdType` int(10) NOT NULL,
+  `SyntômeIdSymptome` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Personne`
+--
+
+CREATE TABLE `Personne` (
+  `Id` int(10) NOT NULL,
+  `Prenom` varchar(255) DEFAULT NULL,
+  `Nom` varchar(255) DEFAULT NULL,
+  `Telephone` varchar(255) DEFAULT NULL,
+  `Adresse` varchar(255) DEFAULT NULL,
+  `DateNaissance` date DEFAULT NULL,
+  `Login` varchar(255) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL,
+  `Titre` varchar(255) DEFAULT NULL,
+  `Specialité` varchar(255) DEFAULT NULL,
+  `Nom de Hopital` varchar(255) DEFAULT NULL,
+  `DateDebutProfession` varchar(255) DEFAULT NULL,
+  `typeDeProfil` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Prévention`
+--
+
+CREATE TABLE `Prévention` (
+  `IdPrev` int(10) NOT NULL,
+  `Description` varchar(255) DEFAULT NULL,
+  `PréventionIdPrev` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Syntôme`
+--
+
+CREATE TABLE `Syntôme` (
+  `IdSymptome` int(10) NOT NULL,
+  `Description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `Type de Maladie`
+--
+
+CREATE TABLE `Type de Maladie` (
+  `IdType` int(10) NOT NULL,
+  `Libelle` varchar(255) DEFAULT NULL,
+  `Description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `Catégorie`
+--
+ALTER TABLE `Catégorie`
+  ADD PRIMARY KEY (`IdCategorie`),
+  ADD KEY `FKCatégorie175290` (`IdCategorie`);
+
+--
+-- Index pour la table `Conseil`
+--
+ALTER TABLE `Conseil`
+  ADD PRIMARY KEY (`IdConseil`);
+
+--
+-- Index pour la table `Diagnostic`
+--
+ALTER TABLE `Diagnostic`
+  ADD PRIMARY KEY (`IdDiagnostic`),
+  ADD KEY `FKDiagnostic441577` (`IdDiagnostic`);
+
+--
+-- Index pour la table `Diagnostic_Syntôme`
+--
+ALTER TABLE `Diagnostic_Syntôme`
+  ADD PRIMARY KEY (`DiagnosticIdDiagnostic`,`SyntômeIdSymptome`),
+  ADD KEY `FKDiagnostic958361` (`DiagnosticIdDiagnostic`),
+  ADD KEY `FKDiagnostic779437` (`SyntômeIdSymptome`);
+
+--
+-- Index pour la table `Maladie`
+--
+ALTER TABLE `Maladie`
+  ADD PRIMARY KEY (`IdMaladie`),
+  ADD KEY `FKMaladie347145` (`IdMaladie`),
+  ADD KEY `FKMaladie579224` (`IdMaladie`);
+
+--
+-- Index pour la table `Maladie_Syntôme`
+--
+ALTER TABLE `Maladie_Syntôme`
+  ADD PRIMARY KEY (`Type de MaladieIdType`,`SyntômeIdSymptome`),
+  ADD KEY `FKMaladie_Sy591539` (`Type de MaladieIdType`),
+  ADD KEY `FKMaladie_Sy288155` (`SyntômeIdSymptome`);
+
+--
+-- Index pour la table `Personne`
+--
+ALTER TABLE `Personne`
+  ADD PRIMARY KEY (`Id`);
+
+--
+-- Index pour la table `Prévention`
+--
+ALTER TABLE `Prévention`
+  ADD PRIMARY KEY (`IdPrev`);
+
+--
+-- Index pour la table `Syntôme`
+--
+ALTER TABLE `Syntôme`
+  ADD PRIMARY KEY (`IdSymptome`);
+
+--
+-- Index pour la table `Type de Maladie`
+--
+ALTER TABLE `Type de Maladie`
+  ADD PRIMARY KEY (`IdType`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `Conseil`
+--
+ALTER TABLE `Conseil`
+  MODIFY `IdConseil` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `Personne`
+--
+ALTER TABLE `Personne`
+  MODIFY `Id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `Prévention`
+--
+ALTER TABLE `Prévention`
+  MODIFY `IdPrev` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `Syntôme`
+--
+ALTER TABLE `Syntôme`
+  MODIFY `IdSymptome` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT pour la table `Type de Maladie`
+--
+ALTER TABLE `Type de Maladie`
+  MODIFY `IdType` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `Catégorie`
+--
+ALTER TABLE `Catégorie`
+  ADD CONSTRAINT `FKCatégorie175290` FOREIGN KEY (`IdCategorie`) REFERENCES `Type de Maladie` (`IdType`);
+
+--
+-- Contraintes pour la table `Diagnostic`
+--
+ALTER TABLE `Diagnostic`
+  ADD CONSTRAINT `FKDiagnostic441577` FOREIGN KEY (`IdDiagnostic`) REFERENCES `Personne` (`Id`);
+
+--
+-- Contraintes pour la table `Diagnostic_Syntôme`
+--
+ALTER TABLE `Diagnostic_Syntôme`
+  ADD CONSTRAINT `FKDiagnostic779437` FOREIGN KEY (`SyntômeIdSymptome`) REFERENCES `Syntôme` (`IdSymptome`),
+  ADD CONSTRAINT `FKDiagnostic958361` FOREIGN KEY (`DiagnosticIdDiagnostic`) REFERENCES `Diagnostic` (`IdDiagnostic`);
+
+--
+-- Contraintes pour la table `Maladie`
+--
+ALTER TABLE `Maladie`
+  ADD CONSTRAINT `FKMaladie347145` FOREIGN KEY (`IdMaladie`) REFERENCES `Type de Maladie` (`IdType`),
+  ADD CONSTRAINT `FKMaladie579224` FOREIGN KEY (`IdMaladie`) REFERENCES `Prévention` (`IdPrev`);
+
+--
+-- Contraintes pour la table `Maladie_Syntôme`
+--
+ALTER TABLE `Maladie_Syntôme`
+  ADD CONSTRAINT `FKMaladie_Sy288155` FOREIGN KEY (`SyntômeIdSymptome`) REFERENCES `Syntôme` (`IdSymptome`),
+  ADD CONSTRAINT `FKMaladie_Sy591539` FOREIGN KEY (`Type de MaladieIdType`) REFERENCES `Type de Maladie` (`IdType`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
